@@ -1,30 +1,37 @@
-import { useState } from 'react';
-import reactLogo from './assets/react.svg';
-import viteLogo from '/vite.svg';
-import './App.css';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import ErrorBoundary from '@/components/ErrorBoundary';
+import Error from '@/components/Error';
+import { ConfigProvider, theme } from 'antd';
+// import { IRoute } from './types/router.type';
+// import routers from './configs/router.config';
+import Login from './pages/login';
+
+// const getRoutes = (routers: IRoute[]) => {
+//   return routers.map((route: IRoute) => {
+//     const { path, component: Component } = route;
+//     return <Route path={path} element={<Component />}></Route>;
+//   });
+// };
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  const darkMode = true;
+  const currentThem = {
+    algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
+    token: {
+      colorPrimary: '#7E22CE',
+    },
+  };
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">Click on the Vite and React logos to learn more</p>
-    </>
+    <ErrorBoundary fallback={<Error />}>
+      <BrowserRouter>
+        <ConfigProvider theme={currentThem}>
+          {/* <Routes>{getRoutes(routers)}</Routes> */}
+          <Routes>
+            <Route path="/login" element={<Login />}></Route>
+          </Routes>
+        </ConfigProvider>
+      </BrowserRouter>
+    </ErrorBoundary>
   );
 }
 
