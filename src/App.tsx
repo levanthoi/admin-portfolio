@@ -4,10 +4,12 @@ import {
   ActionFunction,
   RouterProvider,
   createBrowserRouter,
+  // Navigate,
 } from 'react-router-dom';
 // import ErrorBoundary from '@/components/ErrorBoundary';
 // import Error from '@/components/Error';
 import { ConfigProvider, theme } from 'antd';
+// import ProtectedRoute from './components/protectedRoute';
 // import { IRoute } from './types/router.type';
 // import routers from './configs/router.config';
 // import Login from './pages/login';
@@ -53,6 +55,8 @@ for (const path of Object.keys(pages)) {
   });
 }
 
+// const isAuth = false;
+
 const router = createBrowserRouter(
   routes.map(({ Element, ErrorBoundary, ...rest }) => ({
     ...rest,
@@ -62,7 +66,7 @@ const router = createBrowserRouter(
 );
 
 function App() {
-  const darkMode = true;
+  const darkMode = false;
   const currentThem = {
     algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
     token: {

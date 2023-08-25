@@ -1,5 +1,7 @@
+import MainLayout from '@/layout/MainLayout';
+
 const Project = () => {
-  return <div>Project</div>;
+  return <MainLayout>Project</MainLayout>;
 };
 
 export default Project;
