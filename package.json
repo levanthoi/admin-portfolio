@@ -10,6 +10,9 @@
     "preview": "vite preview",
     "prepare": "husky install"
   },
+  "engines": {
+    "node": ">=14.20.1"
+  },
   "dependencies": {
     "@ant-design/icons": "^5.2.5",
     "antd": "^5.8.4",

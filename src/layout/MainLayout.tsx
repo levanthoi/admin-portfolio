@@ -9,7 +9,7 @@ const { Header, Sider, Content } = Layout;
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <Layout>
+    <Layout hasSider>
       <Sider
         trigger={null}
         collapsible
