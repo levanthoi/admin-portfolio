@@ -1,7 +1,11 @@
-import MainLayout from '@/layout/MainLayout';
+import Statistics from '@/components/statistic/Statistic';
 
 const Dashboard = () => {
-  return <MainLayout>Dashboard</MainLayout>;
+  return (
+    <>
+      <Statistics />
+    </>
+  );
 };
 
 export default Dashboard;

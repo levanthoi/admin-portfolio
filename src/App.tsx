@@ -9,6 +9,7 @@ import {
 // import ErrorBoundary from '@/components/ErrorBoundary';
 // import Error from '@/components/Error';
 import { ConfigProvider, theme } from 'antd';
+import MainLayout from './layout/MainLayout';
 // import ProtectedRoute from './components/protectedRoute';
 // import { IRoute } from './types/router.type';
 // import routers from './configs/router.config';
@@ -55,12 +56,18 @@ for (const path of Object.keys(pages)) {
   });
 }
 
-// const isAuth = false;
+const isAuth = true;
 
 const router = createBrowserRouter(
   routes.map(({ Element, ErrorBoundary, ...rest }) => ({
     ...rest,
-    element: <Element />,
+    element: isAuth ? (
+      <MainLayout>
+        <Element />
+      </MainLayout>
+    ) : (
+      <Element />
+    ),
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
   })),
 );

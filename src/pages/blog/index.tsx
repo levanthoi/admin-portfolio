@@ -1,7 +1,13 @@
-import MainLayout from '@/layout/MainLayout';
+import Taskbar from '@/components/taskbar/Taskbar';
+import { Table } from 'antd';
 
 const Blog = () => {
-  return <MainLayout>Blog</MainLayout>;
+  return (
+    <>
+      <Taskbar />
+      <Table />
+    </>
+  );
 };
 
 export default Blog;
