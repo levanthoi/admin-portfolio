@@ -3,6 +3,7 @@
 interface ImportMetaEnv {
   readonly VITE_API_ENDPOINT_V1: string;
   readonly VITE_API_ENDPOINT_V2: string;
+  readonly VITE_NAMESPACE: string;
   // more env variables...
 }
 
