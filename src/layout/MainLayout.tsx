@@ -10,13 +10,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <Layout hasSider>
-      <Sider
-        trigger={null}
-        collapsible
-        collapsed={collapsed}
-        theme="dark"
-        className="min-h-full h-screen"
-      >
+      <Sider trigger={null} collapsible collapsed={collapsed} theme="dark" className="min-h-full">
         <div className="text-2xl text-white text-center">----------------</div>
         <MenuLayout />
       </Sider>
