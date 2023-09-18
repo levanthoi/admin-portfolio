@@ -1,16 +1,18 @@
-import { Modal } from 'antd';
+import { Modal, message } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Checked from '../checkbox/Checked';
-import { getProjectsGithub } from '@/services/project';
+import { addProjects, getProjectsGithub } from '@/services/project';
 import { IProject } from '@/types/project.type';
 
 interface Props {
   isOpen: boolean;
+  projects: IProject[];
   onClick: () => void;
 }
 
-const ViewModal: React.FC<Props> = ({ isOpen, onClick }) => {
+const ViewModal: React.FC<Props> = ({ isOpen, projects, onClick }) => {
   const [repositories, setRepositories] = useState<IProject[]>([]);
+  const [checkedRepositories, setCheckedRepositories] = useState<IProject[]>([]);
 
   useEffect(() => {
     const params = {
@@ -26,11 +28,26 @@ const ViewModal: React.FC<Props> = ({ isOpen, onClick }) => {
 
   const postProjects = (values: any) => {
     console.log(values);
+    const checkedRepo = repositories?.filter((repo: IProject) => values.includes(repo.id));
+    setCheckedRepositories(checkedRepo);
   };
 
+  const handleSubmit = async () => {
+    // const addNew = checkedRepositories?.filter((repo) => repo.id === )
+    const res = await addProjects(checkedRepositories);
+    if (res.success) {
+      message.success(res.message);
+      onClick();
+    }
+  };
+
+  {
+    console.log('=== render VIEWMODAL ===');
+  }
+
   return (
-    <Modal title="Dự án trên Github" open={isOpen} onCancel={onClick}>
-      <Checked repositories={repositories} postProjects={postProjects} />
+    <Modal title="Dự án trên Github" open={isOpen} onCancel={onClick} onOk={handleSubmit}>
+      <Checked repositories={repositories} projects={projects} postProjects={postProjects} />
     </Modal>
   );
 };

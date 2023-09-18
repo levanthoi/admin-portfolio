@@ -8,4 +8,8 @@ const getItem = (key: string) => {
   return getCookie[key];
 };
 
-export { getCookie, getItem };
+const setCookie = (value: any) => {
+  Cookies.set(import.meta.env.VITE_NAMESPACE, JSON.stringify(value));
+};
+
+export { getCookie, getItem, setCookie };

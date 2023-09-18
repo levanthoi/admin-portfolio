@@ -9,3 +9,9 @@ export function getProjects(): Promise<CustomResponse<IProject[]>> {
 export function getProjectsGithub(params: IParams): Promise<CustomResponse<IProject[]>> {
   return request.get(`/v1/projects/github?${queryString(params)}`);
 }
+export function addProjects(params: IProject[]): Promise<CustomResponse<IProject[]>> {
+  return request.post(`/v1/projects`, params);
+}
+export function deleteProject(id: string | any): Promise<CustomResponse<null>> {
+  return request.delete(`/v1/projects/${id}`);
+}
