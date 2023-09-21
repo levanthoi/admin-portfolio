@@ -3,9 +3,12 @@ import {
   ActionFunction,
   RouterProvider,
   createBrowserRouter,
+  RouteObject,
 } from 'react-router-dom';
-import { ConfigProvider, theme } from 'antd';
-import MainLayout from './layout/MainLayout';
+import { App, ConfigProvider, theme } from 'antd';
+// import MainLayout from './layout/MainLayout';
+// import { getRouterPage } from './utils/helper';
+// import Login from './pages/login';
 
 interface RouteCommon {
   loader?: LoaderFunction;
@@ -16,6 +19,7 @@ interface RouteCommon {
 interface IRoute extends RouteCommon {
   path: string;
   Element: React.ComponentType<any>;
+  children?: IRoute[];
 }
 
 interface Pages {
@@ -25,13 +29,27 @@ interface Pages {
 }
 
 const pages: Pages = import.meta.glob('./pages/**/*.tsx', { eager: true });
-console.log('pages', pages);
+// console.log('pages', pages);
 
-const routes: IRoute[] = [];
+// const layouts: IRoute[] = [];
+
+const routes: IRoute[] = [
+  // {
+  //   path: '/login',
+  //   Element: Login,
+  // },
+  // {
+  //   path: '/*',
+  //   Element: MainLayout,
+  //   children: layouts,
+  // },
+];
+
 for (const path of Object.keys(pages)) {
   const fileName = path.match(/\.\/pages\/(.*)\.tsx$/)?.[1];
+  // console.log('aaaa', getRouterPage(path));
 
-  if (!fileName) {
+  if (!fileName || fileName === 'login/index') {
     continue;
   }
 
@@ -48,23 +66,20 @@ for (const path of Object.keys(pages)) {
   });
 }
 
-const isAuth = true;
-
-const router = createBrowserRouter(
-  routes.map(({ Element, ErrorBoundary, ...rest }) => ({
+const getRoutes = (routes: IRoute[]): RouteObject[] => {
+  return routes.map(({ Element, ErrorBoundary, ...rest }) => ({
     ...rest,
-    element: isAuth ? (
-      <MainLayout>
-        <Element />
-      </MainLayout>
-    ) : (
-      <Element />
-    ),
+    element: <Element />,
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
-  })),
-);
+    // children: children && getRoutes(children),
+  }));
+};
 
-function App() {
+const router = createBrowserRouter(getRoutes(routes));
+
+console.log('router', router);
+
+function NextApp() {
   const darkMode = false;
   const currentThem = {
     algorithm: darkMode ? theme.darkAlgorithm : theme.defaultAlgorithm,
@@ -74,12 +89,14 @@ function App() {
   };
   return (
     <ConfigProvider theme={currentThem}>
-      <RouterProvider router={router} />
+      <App>
+        <RouterProvider router={router} />
+      </App>
     </ConfigProvider>
   );
 }
 
-export default App;
+export default NextApp;
 
 // import { BrowserRouter, Routes, Route } from 'react-router-dom';
 // import Project from './pages/project';

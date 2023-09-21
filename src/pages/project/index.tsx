@@ -1,7 +1,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import Taskbar from '@/components/taskbar/Taskbar';
 import { deleteProject, getProjects } from '@/services/project';
-import { Button, Image, Popconfirm, Space, Table, message } from 'antd';
+import { Button, Image, Popconfirm, Space, Table } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 // import { IImage } from '@/types/upload.type';
@@ -9,21 +9,16 @@ import { IProject } from '@/types/project.type';
 import ViewModal from '@/components/modal/ViewModal';
 import { IImage } from '@/types/upload.type';
 
-// interface IColumn {
-//   id: number;
-//   name: string;
-//   images: IImage;
-// }
-
 const Project = () => {
   const [projects, setProjects] = useState<IProject[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  // const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
 
   const fetch = useCallback(async () => {
+    setIsLoading(true);
     const response = await getProjects();
     setProjects(response.data);
-    // setIsLoading(!response.sucess);
+    setIsLoading(false);
     // console.log('rrr', response, isLoading);
   }, []);
   useEffect(() => {
@@ -34,11 +29,8 @@ const Project = () => {
     console.log(record);
   };
   const handleDelete = async (record: IProject) => {
-    // console.log(record);
-    const res = await deleteProject(record._id);
-    if (res.success) {
-      message.success(res.message);
-    }
+    await deleteProject(record._id);
+    fetch();
   };
 
   const columns: ColumnsType<any> = [
@@ -53,6 +45,7 @@ const Project = () => {
         text?.map((image: IImage) => (
           <Image key={image.uid} src={image.url} alt="anh" crossOrigin="anonymous" />
         )),
+      width: '30%',
     },
     {
       title: 'Tên',
@@ -78,11 +71,11 @@ const Project = () => {
   return (
     <>
       <Space>
-        <Taskbar />
+        <Taskbar fetchList={fetch} />
         <Button onClick={handleClick}>Github</Button>
       </Space>
       <ViewModal isOpen={isOpen} onClick={handleClick} projects={projects} />
-      <Table columns={columns} rowKey="_id" dataSource={projects} />
+      <Table columns={columns} rowKey="_id" dataSource={projects} loading={isLoading} />
     </>
   );
 };

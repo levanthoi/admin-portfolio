@@ -1,12 +1,13 @@
 import MyUpload from '@/components/upload/MyUpload';
 import { addProjects } from '@/services/project';
-import { Button, Form, Input, message } from 'antd';
+import { App, Button, Form, Input } from 'antd';
 import React from 'react';
 import { useSelector } from 'react-redux';
 
 const Post: React.FC = () => {
   const [form] = Form.useForm();
   const { Item } = Form;
+  const { message } = App.useApp();
 
   const images = useSelector((state: any) => state.upload.data);
 

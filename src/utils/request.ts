@@ -1,7 +1,8 @@
 import axios from 'axios';
 import baseUrl from './baseUrl';
 import { getItem } from './cookie';
-import { notification } from 'antd';
+// import { notification } from 'antd';
+// import { notification } from '@/store/storeApp';
 
 const request = axios.create({
   baseURL: baseUrl,
@@ -30,13 +31,13 @@ request.interceptors.response.use(
       return res.data;
     }
   },
-  (error) => {
-    console.log(error);
-    notification.error({
-      message: 'Lỗi',
-      description: error?.message || ' Error',
-    });
-  },
+  // (error) => {
+  //   console.log(error);
+  //   notification.error({
+  //     message: 'Lỗi',
+  //     description: error?.message || ' Error',
+  //   });
+  // },
 );
 
 export default request;

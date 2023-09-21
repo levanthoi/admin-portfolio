@@ -1,8 +1,9 @@
-import { Modal, message } from 'antd';
+import { App, Modal } from 'antd';
 import React, { useEffect, useState } from 'react';
 import Checked from '../checkbox/Checked';
 import { addProjects, getProjectsGithub } from '@/services/project';
 import { IProject } from '@/types/project.type';
+// import { message } from '@/store/storeApp';
 
 interface Props {
   isOpen: boolean;
@@ -35,10 +36,14 @@ const ViewModal: React.FC<Props> = ({ isOpen, projects, onClick }) => {
   const handleSubmit = async () => {
     // const addNew = checkedRepositories?.filter((repo) => repo.id === )
     const res = await addProjects(checkedRepositories);
-    if (res.success) {
-      message.success(res.message);
-      onClick();
-    }
+    console.log(res);
+
+    // if (res.success) {
+    //   console.log('message', message);
+
+    //   message.success(res.message);
+    //   onClick();
+    // }
   };
 
   {
@@ -46,9 +51,11 @@ const ViewModal: React.FC<Props> = ({ isOpen, projects, onClick }) => {
   }
 
   return (
-    <Modal title="Dự án trên Github" open={isOpen} onCancel={onClick} onOk={handleSubmit}>
-      <Checked repositories={repositories} projects={projects} postProjects={postProjects} />
-    </Modal>
+    <App>
+      <Modal title="Dự án trên Github" open={isOpen} onCancel={onClick} onOk={handleSubmit}>
+        <Checked repositories={repositories} projects={projects} postProjects={postProjects} />
+      </Modal>
+    </App>
   );
 };
 
