@@ -6,6 +6,7 @@ import {
 } from 'react-router-dom';
 import { App, ConfigProvider, theme } from 'antd';
 import React from 'react';
+import MainLayout from './layout/MainLayout';
 // import MainLayout from './layout/MainLayout';
 // import { getRouterPage } from './utils/helper';
 // import Login from './pages/login';
@@ -79,7 +80,11 @@ for (const path of Object.keys(pages)) {
 const router = createBrowserRouter(
   routes.map(({ Element, ErrorBoundary, ...rest }) => ({
     ...rest,
-    element: <Element />,
+    element: (
+      <MainLayout>
+        <Element />
+      </MainLayout>
+    ),
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
   })),
 );
