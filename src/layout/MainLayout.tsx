@@ -1,17 +1,17 @@
 import BreadCrumb from '@/components/breadcrumb';
 import MenuLayout from '@/components/menu';
-import { getItem } from '@/utils/cookie';
+// import { getItem } from '@/utils/cookie';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 
 const { Header, Sider, Content } = Layout;
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
-  const navigate = useNavigate();
-  if (!getItem('accessToken')) navigate('/login');
+  // const navigate = useNavigate();
+  // if (!getItem('accessToken')) navigate('/login');
   return (
     <Layout hasSider>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="dark" className="min-h-full">

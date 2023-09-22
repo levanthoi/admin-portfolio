@@ -58,7 +58,7 @@ for (const path of Object.keys(pages)) {
     ? fileName.replace('$', ':')
     : fileName.replace(/\/index/, '');
 
-  console.log('path', pages[path].default);
+  // console.log('path', pages[path].default);
 
   routes.push({
     path: fileName === 'index' ? '/' : `/${normalizedPathName.toLowerCase()}`,
