@@ -3,9 +3,9 @@ import {
   ActionFunction,
   RouterProvider,
   createBrowserRouter,
-  RouteObject,
 } from 'react-router-dom';
 import { App, ConfigProvider, theme } from 'antd';
+import React from 'react';
 // import MainLayout from './layout/MainLayout';
 // import { getRouterPage } from './utils/helper';
 // import Login from './pages/login';
@@ -18,7 +18,7 @@ interface RouteCommon {
 
 interface IRoute extends RouteCommon {
   path: string;
-  Element: React.ComponentType<any>;
+  Element: React.ComponentType<any> | any;
   children?: IRoute[];
 }
 
@@ -49,13 +49,15 @@ for (const path of Object.keys(pages)) {
   const fileName = path.match(/\.\/pages\/(.*)\.tsx$/)?.[1];
   // console.log('aaaa', getRouterPage(path));
 
-  if (!fileName || fileName === 'login/index') {
+  if (!fileName) {
     continue;
   }
 
   const normalizedPathName = fileName.includes('$')
     ? fileName.replace('$', ':')
     : fileName.replace(/\/index/, '');
+
+  console.log('path', pages[path].default);
 
   routes.push({
     path: fileName === 'index' ? '/' : `/${normalizedPathName.toLowerCase()}`,
@@ -66,16 +68,21 @@ for (const path of Object.keys(pages)) {
   });
 }
 
-const getRoutes = (routes: IRoute[]): RouteObject[] => {
-  return routes.map(({ Element, ErrorBoundary, ...rest }) => ({
+// const getRoutes = (routes: IRoute[]): RouteObject[] => {
+//   return routes.map(({ Element, ErrorBoundary, ...rest }) => ({
+//     ...rest,
+//     element: <Element />,
+//     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
+//   }));
+// };
+
+const router = createBrowserRouter(
+  routes.map(({ Element, ErrorBoundary, ...rest }) => ({
     ...rest,
     element: <Element />,
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
-    // children: children && getRoutes(children),
-  }));
-};
-
-const router = createBrowserRouter(getRoutes(routes));
+  })),
+);
 
 console.log('router', router);
 
