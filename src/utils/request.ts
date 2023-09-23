@@ -16,7 +16,7 @@ request.interceptors.request.use(
   (config) => {
     const cf = config;
     const token = getItem('accessToken');
-    if (token) cf.headers.Authorization = `Bearer ${token}`;
+    if (token) cf.headers.authorization = `Bearer ${token}`;
     return cf;
   },
   (error) => {

@@ -8,8 +8,10 @@ import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 import { IProject } from '@/types/project.type';
 import ViewModal from '@/components/modal/ViewModal';
 import { IImage } from '@/types/upload.type';
+import { useNavigate } from 'react-router-dom';
 
 const Project = () => {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState<IProject[]>([]);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -19,14 +21,13 @@ const Project = () => {
     const response = await getProjects();
     setProjects(response.data);
     setIsLoading(false);
-    // console.log('rrr', response, isLoading);
   }, []);
   useEffect(() => {
     fetch();
   }, [fetch]);
 
   const handleEdit = (record: any) => {
-    console.log(record);
+    navigate(`/project/${record._id}`);
   };
   const handleDelete = async (record: IProject) => {
     await deleteProject(record._id);

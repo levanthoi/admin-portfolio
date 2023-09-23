@@ -38,12 +38,12 @@ const ViewModal: React.FC<Props> = ({ isOpen, projects, onClick }) => {
     const res = await addProjects(checkedRepositories);
     console.log(res);
 
-    // if (res.success) {
-    //   console.log('message', message);
+    if (res.success) {
+      // console.log('message', message);
 
-    //   message.success(res.message);
-    //   onClick();
-    // }
+      // message.success(res.message);
+      onClick();
+    }
   };
 
   {
