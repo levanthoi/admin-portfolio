@@ -11,7 +11,10 @@ const { Header, Sider, Content } = Layout;
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
   // const navigate = useNavigate();
-  // if (!getItem('accessToken')) navigate('/login');
+  // useEffect(() => {
+  //   if (!getItem('accessToken')) navigate('/login');
+  // }, [navigate]);
+
   return (
     <Layout hasSider>
       <Sider trigger={null} collapsible collapsed={collapsed} theme="dark" className="min-h-full">

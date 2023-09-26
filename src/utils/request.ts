@@ -31,13 +31,14 @@ request.interceptors.response.use(
       return res.data;
     }
   },
-  // (error) => {
-  //   console.log(error);
-  //   notification.error({
-  //     message: 'Lỗi',
-  //     description: error?.message || ' Error',
-  //   });
-  // },
+  (error) => {
+    alert(error?.message || 'Error');
+    // console.log(error, antdUtils);
+    // antdUtils.notification?.error({
+    //   message: 'Lỗi',
+    //   description: error?.message || ' Error',
+    // });
+  },
 );
 
 export default request;

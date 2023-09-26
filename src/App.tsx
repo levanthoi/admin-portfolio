@@ -7,6 +7,7 @@ import {
 import { App, ConfigProvider, theme } from 'antd';
 import React from 'react';
 import MainLayout from './layout/MainLayout';
+import ProtectedRoute from './components/protectedRoute';
 // import MainLayout from './layout/MainLayout';
 // import { getRouterPage } from './utils/helper';
 // import Login from './pages/login';
@@ -85,9 +86,11 @@ const router = createBrowserRouter(
       path === '/login' ? (
         <Element />
       ) : (
-        <MainLayout>
-          <Element />
-        </MainLayout>
+        <ProtectedRoute>
+          <MainLayout>
+            <Element />
+          </MainLayout>
+        </ProtectedRoute>
       ),
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
   })),
