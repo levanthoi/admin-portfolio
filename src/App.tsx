@@ -80,8 +80,9 @@ for (const path of Object.keys(pages)) {
 const router = createBrowserRouter(
   routes.map(({ Element, ErrorBoundary, path, ...rest }) => ({
     ...rest,
+    path,
     element:
-      path === '/' ? (
+      path === '/login' ? (
         <Element />
       ) : (
         <MainLayout>
