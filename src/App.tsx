@@ -78,18 +78,21 @@ for (const path of Object.keys(pages)) {
 // };
 
 const router = createBrowserRouter(
-  routes.map(({ Element, ErrorBoundary, ...rest }) => ({
+  routes.map(({ Element, ErrorBoundary, path, ...rest }) => ({
     ...rest,
-    element: (
-      <MainLayout>
+    element:
+      path === '/' ? (
         <Element />
-      </MainLayout>
-    ),
+      ) : (
+        <MainLayout>
+          <Element />
+        </MainLayout>
+      ),
     ...(ErrorBoundary && { errorElement: <ErrorBoundary /> }),
   })),
 );
 
-console.log('router', router);
+// console.log('router', router);
 
 function NextApp() {
   const darkMode = false;
