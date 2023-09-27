@@ -1,19 +1,24 @@
 import { login } from '@/services/auth';
 import { IUser } from '@/types/user.type';
-import { setCookie } from '@/utils/cookie';
+import { getItem, setCookie } from '@/utils/cookie';
 import { Button, Card, Form, Input } from 'antd';
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
-  const naviagate = useNavigate();
+  const navigate = useNavigate();
   const [form] = Form.useForm();
   const { Item } = Form;
+
+  useEffect(() => {
+    if (getItem('accessToken')) navigate('/');
+  }, [navigate]);
 
   const onSubmit = async (values: IUser) => {
     const res = await login(values);
     if (res.success) {
       setCookie(res.data);
-      naviagate('/project');
+      navigate('/project');
     }
   };
   return (

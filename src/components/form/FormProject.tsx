@@ -46,7 +46,7 @@ const FormProject: React.FC<Props> = ({ project }) => {
         <Input.TextArea rows={5} />
       </Item>
       <Item valuePropName="fileList">
-        <MyUpload name="images" />
+        <MyUpload name="images" images={project?.images} />
       </Item>
       <Item>
         <Button type="primary" htmlType="submit">
