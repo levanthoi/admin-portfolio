@@ -38,6 +38,7 @@ const Project = () => {
     {
       title: 'STT',
       render: (_, __, index) => index + 1,
+      width: '12%',
     },
     {
       title: 'Ảnh',
@@ -76,7 +77,13 @@ const Project = () => {
         <Button onClick={handleClick}>Github</Button>
       </Space>
       <ViewModal isOpen={isOpen} onClick={handleClick} projects={projects} />
-      <Table columns={columns} rowKey="_id" dataSource={projects} loading={isLoading} />
+      <Table
+        columns={columns}
+        rowKey="_id"
+        dataSource={projects}
+        loading={isLoading}
+        scroll={{ x: 500 }}
+      />
     </>
   );
 };

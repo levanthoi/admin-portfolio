@@ -1,5 +1,6 @@
 import BreadCrumb from '@/components/breadcrumb';
 import MenuLayout from '@/components/menu';
+import useSizeWindow from '@/hooks/useSizeWindow';
 // import { getItem } from '@/utils/cookie';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Button, Layout } from 'antd';
@@ -10,14 +11,17 @@ const { Header, Sider, Content } = Layout;
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [collapsed, setCollapsed] = useState(false);
-  // const navigate = useNavigate();
-  // useEffect(() => {
-  //   if (!getItem('accessToken')) navigate('/login');
-  // }, [navigate]);
+  const { width } = useSizeWindow();
 
   return (
     <Layout hasSider>
-      <Sider trigger={null} collapsible collapsed={collapsed} theme="dark" className="min-h-full">
+      <Sider
+        trigger={null}
+        collapsible
+        collapsed={width < 568 ? !collapsed : collapsed}
+        theme="dark"
+        className="min-h-full"
+      >
         <div className="text-2xl text-white text-center">----------------</div>
         <MenuLayout />
       </Sider>

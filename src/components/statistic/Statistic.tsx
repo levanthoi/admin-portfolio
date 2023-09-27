@@ -4,8 +4,8 @@ import { Card, Col, Row, Statistic } from 'antd';
 
 const Statistics: React.FC = () => {
   return (
-    <Row gutter={16}>
-      <Col span={12}>
+    <Row gutter={[16, 16]} wrap>
+      <Col sm={12} xs={24}>
         <Card bordered={false}>
           <Statistic
             title="Active"
@@ -17,7 +17,7 @@ const Statistics: React.FC = () => {
           />
         </Card>
       </Col>
-      <Col span={12}>
+      <Col sm={12} xs={24}>
         <Card bordered={false}>
           <Statistic
             title="Idle"

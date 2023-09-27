@@ -5,7 +5,7 @@ const Blog = () => {
   return (
     <>
       {/* <Taskbar /> */}
-      <Table />
+      <Table scroll={{ x: 500 }} />
     </>
   );
 };
